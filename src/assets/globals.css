@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: #242424;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  overflow-y: auto;
+  /* --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255; */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: Helvetica, Geneca, sans-serif;
+  color: #e4e6eb;
+  text-align: center;
+  height: 100%;
+
+  font-size: calc(12px + 1.5vw);
+}
+
+input {
+  color: black;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
