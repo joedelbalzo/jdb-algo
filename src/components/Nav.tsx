@@ -9,7 +9,7 @@ interface NavProps {
 
 const Nav: React.FC<NavProps> = ({ setHomeComponent }) => {
   return (
-    <div className="algo-nav bg-#181818 flex h-[120px] justify-evenly items-center p-1vh mb-10 shadow-md w-[90vw] mx-auto">
+    <div className="algo-nav bg-#181818 flex h-[120px] justify-evenly items-center p-1vh mb-1 shadow-md w-[90vw] mx-auto">
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Image
           src={logo}

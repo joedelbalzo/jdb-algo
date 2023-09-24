@@ -30,19 +30,20 @@ const questionsSlice = createSlice({
 export const { setQuestions, setCodingQuestions } = questionsSlice.actions;
 
 export const fetchQuestions = () => async (dispatch: AppDispatch) => {
-  console.log("you're in the store!");
-  const response = await axios.get(`${API_BASE_URL}/api/questions`);
+  // console.log("you're in the store!");
+  // console.log(`${API_BASE_URL}/questions`);
+  const response = await axios.get(`${API_BASE_URL}/questions`);
   console.log(response);
   dispatch(setQuestions(response.data));
 };
 
 export const fetchCodingQuestions = () => async (dispatch: AppDispatch) => {
-  const response = await axios.get(`${API_BASE_URL}/api/codingquestions`);
+  const response = await axios.get(`${API_BASE_URL}/codingquestions`);
   dispatch(setCodingQuestions(response.data));
 };
 
 export const lastSubmittedAnswer = (curr: any, submit: any) => async (dispatch: AppDispatch) => {
-  const response = await axios.put(`${API_BASE_URL}/api/questions`, { curr, submit });
+  const response = await axios.put(`${API_BASE_URL}/questions`, { curr, submit });
   dispatch(setQuestions(response.data));
 };
 

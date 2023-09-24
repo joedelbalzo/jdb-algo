@@ -4,16 +4,16 @@ import { fetchQuestions, lastSubmittedAnswer } from "@/redux/store";
 import styles from "./MCQ.module.css";
 
 interface MCQProps {
-  updateCorrectNumber: React.Dispatch<React.SetStateAction<number>>;
-  updateIncorrectNumber: React.Dispatch<React.SetStateAction<number>>;
+  updateCorrectState: React.Dispatch<React.SetStateAction<number>>;
+  updateIncorrectState: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const MCQ: React.FC<MCQProps> = ({ updateCorrectNumber, updateIncorrectNumber }) => {
+const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) => {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchQuestions());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchQuestions());
+  // }, [dispatch]);
 
   interface Question {
     category: string;
@@ -26,9 +26,24 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectNumber, updateIncorrectNumber })
     answerFive: string;
     timesIncorrect: number;
     timesCorrect: number;
+    correctAnswerArray: Array<Boolean>;
   }
 
   const questions: Question[] = useAppSelector((state) => state.questions);
+
+  const questionRandomizer = (): Question => {
+    // console.log("recently correct", recentlyCorrect);
+    if (recentlyCorrect.length === 0) {
+      const question = questions[Math.floor(Math.random() * questions.length)];
+      return question;
+    }
+    let notRecentlyCorrect = questions.filter((q) => !recentlyCorrect.includes(q));
+    let mostlyCorrect = notRecentlyCorrect.filter((q) => q.timesIncorrect + 3 < q.timesCorrect);
+    let mostlyIncorrect = notRecentlyCorrect.filter((q) => q.timesIncorrect + 3 >= q.timesCorrect);
+
+    let random = [...mostlyIncorrect, ...mostlyIncorrect, ...mostlyCorrect];
+    return random[Math.floor(Math.random() * random.length)];
+  };
 
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [oneIsChecked, setOneIsChecked] = useState<boolean>(false);
@@ -39,29 +54,21 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectNumber, updateIncorrectNumber })
   const [recentlyCorrect, setRecentlyCorrect] = useState<Question[]>([]);
   const [explanation, setExplanation] = useState("");
 
-  const questionRandomizer = (): Question => {
-    if (recentlyCorrect.length === 0) {
-      const question = questions[Math.floor(Math.random() * questions.length)];
-      return question;
-    }
-    let notRecentlyCorrect = questions.filter((q) => !recentlyCorrect.includes(q));
-    let mostlyCorrect = notRecentlyCorrect.filter((q) => q.timesIncorrect + 3 < q.timesCorrect);
-    let mostlyIncorrect = notRecentlyCorrect.filter((q) => q.timesIncorrect + 3 >= q.timesCorrect);
-    console.log("mostly incorrect", mostlyIncorrect);
-    let random = [...mostlyIncorrect, ...mostlyIncorrect, ...mostlyCorrect];
-    return random[Math.floor(Math.random() * random.length)];
-  };
-
-  useEffect(() => {
-    try {
-      setCurrentQuestion(questionRandomizer());
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-
   if (!questions) {
     return null;
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    const q = questionRandomizer();
+    setCurrentQuestion(q);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!currentQuestion) {
+    return null;
+  } else {
+    console.log(currentQuestion, "current question");
   }
 
   //randomizer in js
@@ -76,51 +83,53 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectNumber, updateIncorrectNumber })
 
   const handleAnswerSubmit = async (ev: React.FormEvent<HTMLFormElement>, curr: Question) => {
     ev.preventDefault();
-    const mcqAnswerArray = [];
-    const correctAnswer = [];
-    if (curr.answerOne[0] === "C") {
-      mcqAnswerArray.push(true);
-      correctAnswer.push(curr.answerOne.slice(1));
-    } else mcqAnswerArray.push(false);
-    if (curr.answerTwo[0] === "C") {
-      mcqAnswerArray.push(true);
-      correctAnswer.push(curr.answerTwo.slice(1));
-    } else mcqAnswerArray.push(false);
-    if (curr.answerThree && curr.answerThree[0] === "C") {
-      mcqAnswerArray.push(true);
-      correctAnswer.push(curr.answerThree.slice(1));
-    } else mcqAnswerArray.push(false);
-    if (curr.answerFour && curr.answerFour[0] === "C") {
-      mcqAnswerArray.push(true);
-      correctAnswer.push(curr.answerFour.slice(1));
-    } else mcqAnswerArray.push(false);
-    if (curr.answerFive && curr.answerFive[0] === "C") {
-      mcqAnswerArray.push(true);
-      correctAnswer.push(curr.answerFive.slice(1));
-    } else mcqAnswerArray.push(false);
     const checked = [oneIsChecked, twoIsChecked, threeIsChecked, fourIsChecked, fiveIsChecked];
+    let correctAnswer = [];
+    if (curr.correctAnswerArray[0] === true) {
+      correctAnswer.push(curr.answerOne);
+    }
+    if (curr.correctAnswerArray[1] === true) {
+      correctAnswer.push(curr.answerTwo);
+    }
+    if (curr.correctAnswerArray[2] === true) {
+      correctAnswer.push(curr.answerThree);
+    }
+    if (curr.correctAnswerArray[3] === true) {
+      correctAnswer.push(curr.answerFour);
+    }
+    if (curr.correctAnswerArray[4] === true) {
+      correctAnswer.push(curr.answerFive);
+    }
+
+    console.log(checked, curr.correctAnswerArray);
 
     let correct = true;
-    for (let i = 0; i < mcqAnswerArray.length; i++) {
-      if (mcqAnswerArray[i] === checked[i]) {
-        correct = true;
-      } else if (mcqAnswerArray[i] !== checked[i]) {
-        updateIncorrectNumber((prevState) => prevState + 1);
+    for (let i = 0; i < 5; i++) {
+      if (checked[i] !== curr.correctAnswerArray[i]) {
+        console.log("you're wrong.");
+        updateIncorrectState((prevState) => prevState + 1);
         dispatch(lastSubmittedAnswer(curr, "incorrect"));
         setExplanation(
           `The answer for "${curr.question.toLowerCase()}" was "${correctAnswer.join(" ")}".`
         );
         correct = false;
         break;
+      } else if (checked[i] === curr.correctAnswerArray[i]) {
+        correct = true;
+        continue;
       }
     }
+    console.log("correct", correct);
+
     if (correct === true) {
-      updateCorrectNumber((prevState) => prevState + 1);
-      // curr.timesCorrect++;
+      console.log("you're right!!!");
+      updateCorrectState((prevState) => prevState + 1);
+      curr.timesCorrect++;
       correctlyAnsweredRecently(curr);
       dispatch(lastSubmittedAnswer(curr, "correct"));
       setExplanation("");
     }
+
     await setCurrentQuestion(questionRandomizer());
     setOneIsChecked(false);
     setTwoIsChecked(false);
@@ -131,13 +140,13 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectNumber, updateIncorrectNumber })
 
   return (
     <>
-      <div className={styles.mainQuestionDiv}>
+      <div className={styles.main_question_div}>
         {currentQuestion && (
           <>
             <div className={styles.currentQuestion}>{currentQuestion.question}</div>
             {currentQuestion.codeSnippet ? (
-              <div id="codesnippet">
-                <pre>{currentQuestion.codeSnippet}</pre>
+              <div id={styles.codesnippet}>
+                <pre style={{ margin: "0 auto" }}>{currentQuestion.codeSnippet}</pre>
               </div>
             ) : (
               ""
@@ -148,62 +157,70 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectNumber, updateIncorrectNumber })
             >
               <label>
                 <input
+                  className={styles.input}
                   id="checkbox"
                   type="checkbox"
                   checked={oneIsChecked}
                   onChange={(ev) => setOneIsChecked(ev.target.checked)}
                 />
-                {currentQuestion.answerOne.slice(1)}
+                {currentQuestion.answerOne}
               </label>
               <label>
                 <input
+                  className={styles.input}
                   id="checkbox"
                   type="checkbox"
                   checked={twoIsChecked}
                   onChange={(ev) => setTwoIsChecked(ev.target.checked)}
                 />
-                {currentQuestion.answerTwo.slice(1)}
+                {currentQuestion.answerTwo}
               </label>
               <label>
                 <input
+                  className={styles.input}
                   id="checkbox"
                   type="checkbox"
                   checked={threeIsChecked}
                   onChange={(ev) => setThreeIsChecked(ev.target.checked)}
                 />
-                {currentQuestion.answerThree.slice(1)}
+                {currentQuestion.answerThree}
               </label>
               <label>
                 <input
+                  className={styles.input}
                   id="checkbox"
                   type="checkbox"
                   checked={fourIsChecked}
                   onChange={(ev) => setFourIsChecked(ev.target.checked)}
                 />
-                {currentQuestion.answerFour.slice(1)}
+                {currentQuestion.answerFour}
               </label>
               {currentQuestion.answerFive ? (
                 <label>
                   <input
+                    className={styles.input}
                     id="checkbox"
                     type="checkbox"
                     checked={fiveIsChecked}
                     onChange={(ev) => setFiveIsChecked(ev.target.checked)}
                   />
-                  {currentQuestion.answerFive.slice(1)}
+                  {currentQuestion.answerFive}
                 </label>
               ) : (
                 ""
               )}
-              <button type="submit" className="run-button">
+              <button type="submit" className={styles.button}>
                 Submit Answer
               </button>
             </form>
           </>
         )}
-        <>{explanation ? <div className="wrong-answer-explanation">{explanation}</div> : ""}</>
+        <>
+          {explanation ? <div className={styles.wrong_answer_explanation}>{explanation}</div> : ""}
+        </>
       </div>
     </>
   );
 };
+
 export default MCQ;

@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "start-express": "node server/index.js",
-    "start-next": "next dev",
-    "dev": "concurrently \"npm run start-express\" \"npm run start-next\""
+    "start-express": "node server/index.js"
   },
   "dependencies": {
     "@types/node": "20.4.8",
