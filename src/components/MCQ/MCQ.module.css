@@ -39,11 +39,19 @@
   border: 10px solid blue;
 }
 
-.button {
+.submit_button {
+  border: none;
   margin: 2vh auto;
-  padding: 0.5rem;
-  font-size: calc(10px + 0.5vw);
-  max-width: 20vw;
+  padding: 1rem;
+  outline: 2px solid white;
+  border-radius: 4px;
+  font-size: calc(12px + 0.5vw);
+  min-width: fit-content;
+  max-width: 25vw;
+}
+
+.submit_button:hover {
+  outline: 3px solid white !important;
 }
 
 #codesnippet {
@@ -89,8 +97,8 @@
 .wrong_answer_explanation {
   width: 60vw;
   font-style: italic;
-  font-size: calc(8px + 1vw);
+  font-size: calc(9px + 1vw);
   font-weight: 300;
-  color: darkred;
+  color: #8b2300;
   margin: auto;
 }

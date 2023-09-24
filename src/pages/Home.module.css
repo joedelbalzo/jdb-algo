@@ -40,16 +40,16 @@
 }
 
 .correct_stats_button:hover {
-  background-color: #1e1e1e;
-  outline: 1px solid green;
+  /* background-color: gray; */
+  outline: 2px solid green;
 }
 .incorrect_stats_button:hover {
-  background-color: #1e1e1e;
-  outline: 1px solid red;
+  /* background-color: gray; */
+  outline: 2px solid red;
 }
 .clear_stats_button:hover {
-  background-color: #1e1e1e;
-  outline: 1px solid #007acc;
+  /* background-color: gray; */
+  outline: 2px solid #007acc;
 }
 
 .mcq_stats {

@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  background-color: #242424;
+  background: linear-gradient(112.1deg, rgb(16, 19, 29) 20%, rgb(32, 38, 60) 70.2%);
+  /* background-color: #242424; */
   margin: 0px;
   padding: 0px;
   height: 100%;

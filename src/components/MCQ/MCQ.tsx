@@ -209,7 +209,7 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) =
               ) : (
                 ""
               )}
-              <button type="submit" className={styles.button}>
+              <button type="submit" className={styles.submit_button}>
                 Submit Answer
               </button>
             </form>
