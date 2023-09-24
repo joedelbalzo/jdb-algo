@@ -124,7 +124,7 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) =
     if (correct === true) {
       console.log("you're right!!!");
       updateCorrectState((prevState) => prevState + 1);
-      curr.timesCorrect++;
+      // curr.timesCorrect = curr.timesCorrect + 1;
       correctlyAnsweredRecently(curr);
       dispatch(lastSubmittedAnswer(curr, "correct"));
       setExplanation("");

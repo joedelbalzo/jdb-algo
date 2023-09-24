@@ -82,8 +82,6 @@ const Home: React.FC = () => {
     localStorage.removeItem("questionsCorrect");
   };
 
-  console.log("home component changed to", homeComponent);
-
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <Nav setHomeComponent={setHomeComponent} />
