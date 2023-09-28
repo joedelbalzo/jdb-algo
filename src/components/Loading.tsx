@@ -11,7 +11,7 @@ const styles = {
   spinner: {
     border: "8px solid rgba(0, 0, 0, 0.1)",
     borderRadius: "50%",
-    borderTop: "6px solid black",
+    borderTop: "6px solid white",
     width: "50px",
     height: "50px",
     animation: "spin 1s linear infinite",

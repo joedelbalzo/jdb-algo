@@ -30,8 +30,6 @@ const questionsSlice = createSlice({
 export const { setQuestions, setCodingQuestions } = questionsSlice.actions;
 
 export const fetchQuestions = () => async (dispatch: AppDispatch) => {
-  // console.log("you're in the store!");
-  // console.log(`${API_BASE_URL}/questions`);
   const response = await axios.get(`${API_BASE_URL}/questions`);
   console.log(response);
   dispatch(setQuestions(response.data));

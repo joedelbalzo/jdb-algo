@@ -6,12 +6,14 @@ import questionsSlice, {
   setCodingQuestions,
   setQuestions,
 } from "./features/questions-slice";
+import { questionsReducer } from "./features/correct-incorrect-slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import thunk from "redux-thunk";
 import { useDispatch } from "react-redux";
 
 export const store = configureStore({
   reducer: questionsSlice.reducer,
+  // questionsReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
 });
 

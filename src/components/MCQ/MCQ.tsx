@@ -11,10 +11,6 @@ interface MCQProps {
 const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) => {
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchQuestions());
-  // }, [dispatch]);
-
   interface Question {
     category: string;
     question: string;
@@ -32,7 +28,6 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) =
   const questions: Question[] = useAppSelector((state) => state.questions);
 
   const questionRandomizer = (): Question => {
-    // console.log("recently correct", recentlyCorrect);
     if (recentlyCorrect.length === 0) {
       const question = questions[Math.floor(Math.random() * questions.length)];
       return question;
@@ -67,12 +62,11 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) =
 
   if (!currentQuestion) {
     return null;
-  } else {
-    console.log(currentQuestion, "current question");
   }
 
   //randomizer in js
   const correctlyAnsweredRecently = (question: Question): void => {
+    //do i dispatch something here to the Correct page?
     setRecentlyCorrect((prevRecentlyCorrect) => {
       if (prevRecentlyCorrect.length >= 25) {
         return [...prevRecentlyCorrect.slice(1), question];
@@ -100,15 +94,12 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) =
     if (curr.correctAnswerArray[4] === true) {
       correctAnswer.push(curr.answerFive);
     }
-
-    console.log(checked, curr.correctAnswerArray);
-
     let correct = true;
     for (let i = 0; i < 5; i++) {
       if (checked[i] !== curr.correctAnswerArray[i]) {
-        console.log("you're wrong.");
         updateIncorrectState((prevState) => prevState + 1);
         dispatch(lastSubmittedAnswer(curr, "incorrect"));
+        //dispatch something to the incorrect page?
         setExplanation(
           `The answer for "${curr.question.toLowerCase()}" was "${correctAnswer.join(" ")}".`
         );
@@ -119,12 +110,9 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) =
         continue;
       }
     }
-    console.log("correct", correct);
 
     if (correct === true) {
-      console.log("you're right!!!");
       updateCorrectState((prevState) => prevState + 1);
-      // curr.timesCorrect = curr.timesCorrect + 1;
       correctlyAnsweredRecently(curr);
       dispatch(lastSubmittedAnswer(curr, "correct"));
       setExplanation("");
@@ -155,17 +143,17 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) =
               className={styles.form}
               onSubmit={(ev) => handleAnswerSubmit(ev, currentQuestion)}
             >
-              <label>
+              <label className={styles.label}>
                 <input
                   className={styles.input}
-                  id="checkbox"
+                  // id="checkbox"
                   type="checkbox"
                   checked={oneIsChecked}
                   onChange={(ev) => setOneIsChecked(ev.target.checked)}
-                />
+                />{" "}
                 {currentQuestion.answerOne}
               </label>
-              <label>
+              <label className={styles.label}>
                 <input
                   className={styles.input}
                   id="checkbox"
@@ -175,7 +163,7 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) =
                 />
                 {currentQuestion.answerTwo}
               </label>
-              <label>
+              <label className={styles.label}>
                 <input
                   className={styles.input}
                   id="checkbox"
@@ -185,7 +173,7 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) =
                 />
                 {currentQuestion.answerThree}
               </label>
-              <label>
+              <label className={styles.label}>
                 <input
                   className={styles.input}
                   id="checkbox"
@@ -196,7 +184,7 @@ const MCQ: React.FC<MCQProps> = ({ updateCorrectState, updateIncorrectState }) =
                 {currentQuestion.answerFour}
               </label>
               {currentQuestion.answerFive ? (
-                <label>
+                <label className={styles.label}>
                   <input
                     className={styles.input}
                     id="checkbox"

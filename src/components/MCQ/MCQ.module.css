@@ -16,38 +16,41 @@
 
 .currentQuestion {
   text-align: left;
-  margin: 3vh auto 1vh;
+  margin: 2vh auto 0;
+  font-size: calc(14px + 1.5vw);
 }
 .form {
   display: flex;
   flex-direction: column;
-  margin: 3vh auto;
+  margin: 4vh auto;
   text-align: left;
   max-width: 70vw;
-  font-size: calc(10px + 1.5vw);
+  font-size: calc(12px + 1vw);
+  line-height: 2rem;
 }
 .label {
   display: flex;
-  align-items: center;
-  margin: 1vh;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 1px 0;
 }
 .input {
   margin-right: 10px;
-}
-
-#checkbox {
-  border: 10px solid blue;
+  display: flex;
+  align-items: flex-end;
+  margin-top: 0.7rem;
 }
 
 .submit_button {
   border: none;
-  margin: 2vh auto;
+  margin: 2vh auto 0;
   padding: 1rem;
-  outline: 2px solid white;
-  border-radius: 4px;
-  font-size: calc(12px + 0.5vw);
+  outline: 0.1px solid white;
+  border-radius: 40px;
+  font-size: calc(12px + 1vw);
   min-width: fit-content;
   max-width: 25vw;
+  max-height: 10vh;
 }
 
 .submit_button:hover {
