@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import Nav from "../components/Nav";
 import MCQ from "../components/MCQ/MCQ";
 import CodingQ from "../components/CodingQ";
-import Stats from "../components/Stats";
 import Footer from "../components/Footer";
 import Loading from "../components/Loading";
 import { useAppDispatch } from "@/redux/store";
