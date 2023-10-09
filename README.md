@@ -8,10 +8,6 @@ This simple app is designed to help you practice for job interviews. Good luck!
   <hr>
 </p>
 
-
-
-## Welcome To My Portfolio Website!
-
 This simple app is designed to help you practice for job interviews. There's over 200 questions in the database, and I'm constantly making additions and improvements, especially to the code runner to hopefully soon allow a user to answer coding questions...with code!
 Please don't hesitate to reach out if you want to collab on this project!
 
