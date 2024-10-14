@@ -28,18 +28,19 @@
   font-size: calc(10px + 0.8vw);
   line-height: calc(16px + 1vw);
 }
+
 .label {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   /* margin: 1px 0; */
-  margin: 1px auto 1px 1vw;
+  margin: 4px auto 4px 1vw;
 }
 .input {
   margin-right: 10px;
   display: flex;
-  align-items: flex-end;
-  margin-top: 0.7rem;
+  align-items: flex-start;
+  margin-top: 0.2rem;
 }
 
 .submit_button {
@@ -98,10 +99,24 @@
 }
 
 .wrong_answer_explanation {
-  width: 60vw;
+  width: 100%;
   font-style: italic;
-  font-size: calc(9px + 1vw);
-  font-weight: 300;
-  color: #8e2300;
+  font-size: calc(10px + 1vw);
+  font-weight: 350;
+  color: #f66;
   margin: auto;
+}
+
+@media screen and (max-width: 800px) {
+  .main_question_div {
+    width: 70vw;
+  }
+
+  .currentQuestion {
+    margin: 2vh auto 0;
+  }
+  .form {
+    margin: 4vh auto;
+    max-width: 70vw;
+  }
 }
