@@ -5,34 +5,35 @@
 
 .currentQuestion {
   text-align: left;
-  max-width: 90vw;
+  max-width: 70vw;
   margin: 3vh auto 1vh;
 }
 
 .main_question_div {
   margin: 2vh auto;
-  width: 90vw;
+  width: 50vw;
 }
 
 .currentQuestion {
   text-align: left;
-  margin: 2vh auto 0;
-  font-size: calc(14px + 1.5vw);
+  margin: 4vh auto 0;
+  font-size: calc(14px + 1vw);
 }
 .form {
   display: flex;
   flex-direction: column;
-  margin: 4vh auto;
+  margin: 5vh auto;
   text-align: left;
-  max-width: 70vw;
-  font-size: calc(12px + 1vw);
-  line-height: 2rem;
+  max-width: 50vw;
+  font-size: calc(10px + 0.8vw);
+  line-height: calc(16px + 1vw);
 }
 .label {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  margin: 1px 0;
+  /* margin: 1px 0; */
+  margin: 1px auto 1px 1vw;
 }
 .input {
   margin-right: 10px;
@@ -43,18 +44,17 @@
 
 .submit_button {
   border: none;
-  margin: 2vh auto 0;
+  margin: 3vh auto 0;
   padding: 1rem;
-  outline: 0.1px solid white;
-  border-radius: 40px;
-  font-size: calc(12px + 1vw);
-  min-width: fit-content;
-  max-width: 25vw;
-  max-height: 10vh;
+  outline: 1px solid whitesmoke;
+  border-radius: 4px;
+  font-size: calc(10px + 0.5vw);
+  width: 200px;
+  height: 60px;
 }
 
 .submit_button:hover {
-  outline: 3px solid white !important;
+  outline: 3px solid whitesmoke !important;
 }
 
 #codesnippet {
@@ -72,7 +72,7 @@
 .run_button {
   margin-bottom: 20px;
   background-color: #007acc;
-  color: white;
+  color: whitesmoke;
   border: none;
   padding: 10px 20px;
   margin: 10px auto;
@@ -83,7 +83,7 @@
   margin-bottom: 20px;
   background-color: #1e1e1e;
   outline: 1px solid #007acc;
-  color: white;
+  color: whitesmoke;
   border: none;
   padding: 10px 20px;
   margin: 10px auto;
@@ -102,6 +102,6 @@
   font-style: italic;
   font-size: calc(9px + 1vw);
   font-weight: 300;
-  color: #8b2300;
+  color: #8e2300;
   margin: auto;
 }
